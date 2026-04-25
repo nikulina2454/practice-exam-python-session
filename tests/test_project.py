@@ -1,9 +1,20 @@
+import os
+import tempfile
+from datetime import datetime, timedelta
+
+from controllers.project_controller import ProjectController
+from controllers.task_controller import TaskController
+from database.database_manager import DatabaseManager
+from models.user import User
+
+
 class TestProjectController:
     """Тесты для ProjectController"""
 
     def setup_method(self):
         """Настройка перед каждым тестом"""
         self.temp_db = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
+        self.temp_db.close()
         self.db_manager = DatabaseManager(self.temp_db.name)
         self.db_manager.create_tables()
         self.controller = ProjectController(self.db_manager)

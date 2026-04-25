@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Главный файл приложения "Система управления библиотекой"
+Главный файл приложения "Система управления задачами"
 Запускает GUI приложение с использованием архитектуры MVC
 """
 
@@ -12,9 +12,9 @@ from tkinter import messagebox
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from controllers.book_controller import BookController
-    from controllers.loan_controller import LoanController
-    from controllers.reader_controller import ReaderController
+    from controllers.project_controller import ProjectController
+    from controllers.task_controller import TaskController
+    from controllers.user_controller import UserController
     from database.database_manager import DatabaseManager
     from views.main_window import MainWindow
 except ImportError as e:
@@ -27,16 +27,16 @@ def main():
     """Главная функция приложения"""
     try:
         # Инициализация базы данных
-        db_manager = DatabaseManager("database/library.db")
+        db_manager = DatabaseManager("database/tasks.db")
         db_manager.create_tables()
 
         # Инициализация контроллеров
-        book_controller = BookController(db_manager)
-        reader_controller = ReaderController(db_manager)
-        loan_controller = LoanController(db_manager)
+        task_controller = TaskController(db_manager)
+        project_controller = ProjectController(db_manager)
+        user_controller = UserController(db_manager)
 
         # Создание и запуск главного окна
-        root = MainWindow(book_controller, reader_controller, loan_controller)
+        root = MainWindow(task_controller, project_controller, user_controller)
         root.mainloop()
 
     except Exception as e:

@@ -11,6 +11,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from controllers.task_controller import TaskController
 from controllers.project_controller import ProjectController
 from controllers.user_controller import UserController
+from models.project import Project
+from models.user import User
 
 
 class TestTaskController:
@@ -19,6 +21,7 @@ class TestTaskController:
     def setup_method(self):
         """Настройка перед каждым тестом"""
         self.temp_db = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
+        self.temp_db.close()
         self.db_manager = DatabaseManager(self.temp_db.name)
         self.db_manager.create_tables()
         self.controller = TaskController(self.db_manager)

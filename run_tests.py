@@ -19,9 +19,9 @@ def run_tests():
     try:
         import pytest
 
-        print("✓ pytest найден")
+        print("[OK] pytest найден")
     except ImportError:
-        print("✗ pytest не найден. Установите: pip install pytest pytest-cov")
+        print("[ERROR] pytest не найден. Установите: pip install pytest")
         return False
 
     # Список тестовых файлов
@@ -38,12 +38,12 @@ def run_tests():
             missing_files.append(test_file)
 
     if missing_files:
-        print("✗ Отсутствуют тестовые файлы:")
+        print("[ERROR] Отсутствуют тестовые файлы:")
         for file in missing_files:
             print(f"  - {file}")
         return False
 
-    print("✓ Все тестовые файлы найдены")
+    print("[OK] Все тестовые файлы найдены")
 
     # Запускаем тесты
     print("\n" + "=" * 60)
@@ -101,7 +101,7 @@ def run_tests():
         print(f"Ошибка запуска тестов: {e}")
 
     print("\n" + "=" * 60)
-    print("ЗАПУСК ВСЕХ ТЕСТОВ С ПОКРЫТИЕМ")
+    print("ПОВТОРНЫЙ ЗАПУСК ВСЕХ ТЕСТОВ")
     print("=" * 60)
 
     try:
@@ -112,8 +112,6 @@ def run_tests():
                 "pytest",
                 "tests/",
                 "-v",
-                "--cov=.",
-                "--cov-report=term-missing",
             ],
             capture_output=True,
             text=True,
@@ -130,7 +128,7 @@ def run_tests():
     print("ИНСТРУКЦИИ ПО ЗАПУСКУ")
     print("=" * 60)
     print("Для запуска всех тестов: pytest -v")
-    print("Для запуска с покрытием: pytest -v --cov=. --cov-report=html")
+    print("Для запуска всех тестов в тихом режиме: pytest -q")
     print("Для запуска конкретных тестов:")
     print("  pytest -v tests/test_user.py")
     print("  pytest -v tests/test_project.py")
